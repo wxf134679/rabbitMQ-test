@@ -33,7 +33,7 @@ public class ConsumerController {
     @ApiOperation("创建消息队列消费者")
     @GetMapping("createMessageQueueListener")
     public String createMessageQueueListener() {
-        mqClientMonitor.createMessageQueueListener("localhost", 5672, "guest", "guest", "chinalife");
+        mqClientMonitor.createMessageQueueListener("localhost", 5672, "guest", "guest", "wang");
         return "SUCCESS";
     }
 

@@ -17,7 +17,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitConfig {
 
-    public static final String QUEUE_NAME = "chinalife";
+    public static final String QUEUE_NAME = "wang";
 
     @Autowired
     Consumer3 consumer3;

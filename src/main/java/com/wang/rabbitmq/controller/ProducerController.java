@@ -19,7 +19,8 @@ import java.util.Date;
 @RequestMapping("/producer")
 public class ProducerController {
 
-    public static final String QUEUE_NAME = "chinalife";
+    public static final String QUEUE_NAME = "wang";
+    public static final String EXCHANGE_NAME = "exchange_anonymous";
 
     @Autowired
     private AmqpTemplate rabbitTemplate;
@@ -29,6 +30,17 @@ public class ProducerController {
         String context = "hello rabbit : ";
         for (int i = 0; i < 100; i++) {
             this.rabbitTemplate.convertAndSend(QUEUE_NAME, context + i);
+            System.out.println("Sender:" + context + i);
+        }
+        return "SUCCESS";
+    }
+
+
+    @GetMapping("/sendEXChange")
+    public String sendEXChange() {
+        String context = "hello rabbit : ";
+        for (int i = 0; i < 100; i++) {
+            this.rabbitTemplate.convertAndSend(EXCHANGE_NAME, "*", context + i);
             System.out.println("Sender:" + context + i);
         }
         return "SUCCESS";

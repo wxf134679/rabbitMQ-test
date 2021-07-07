@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/pull")
 public class PullConsumerController {
 
-    public static final String QUEUE_NAME = "chinalife";
+    public static final String QUEUE_NAME = "wang";
 
     @Autowired
     private RabbitTemplate rabbitTemplate;
