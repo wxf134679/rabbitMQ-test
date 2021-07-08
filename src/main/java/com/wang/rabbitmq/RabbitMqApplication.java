@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ImportResource;
 
 @SpringBootApplication
-@ImportResource("classpath:/config/service-*-context.xml")
+@ImportResource({"classpath:/config/web-application-context.xml"})
 public class RabbitMqApplication {
 
     public static void main(String[] args) {
