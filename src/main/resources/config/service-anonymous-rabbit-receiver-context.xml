@@ -35,7 +35,7 @@
 	<rabbit:listener-container
 		connection-factory="mqConnectionFactory" acknowledge="manual"
 		task-executor="taskExecutor" declaration-retries="${mq.rabbit.declarationRetries}"
-		failed-declaration-retry-interval="${mq.rabbit.failedDeclarationRetryInterval}">
+		failed-declaration-retry-interval="${mq.rabbit.failedDeclarationRetryInterval}" auto-startup="false">
 		<rabbit:listener queues="queue_anonymous" ref="consumer5Listener" />
 	</rabbit:listener-container>
 
