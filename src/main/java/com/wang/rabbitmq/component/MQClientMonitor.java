@@ -7,15 +7,19 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer;
+import org.springframework.amqp.rabbit.listener.MessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.RabbitListenerEndpointRegistry;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -40,6 +44,16 @@ public class MQClientMonitor {
 
     @Autowired
     private Consumer4 consumer4;
+
+    @Autowired
+    private CachingConnectionFactory mqConnectionFactory;
+
+    @Autowired
+    private RabbitAdmin mqAdmin;
+
+    @Autowired
+    @Qualifier("consumerListenerContainer")
+    private Collection<SimpleMessageListenerContainer> consumerListenerContainer;
 
     /**
      * queue2ContainerAllMap初始化标识
@@ -108,16 +122,9 @@ public class MQClientMonitor {
         return queueDetailList;
     }
 
-    public void createMessageQueueListener(String host, Integer port, String userName, String passWord, String queueName) {
-        CachingConnectionFactory connectionFactory = MQUtils.getConnectionFactory(host, port, userName, passWord);
-        if (Objects.isNull(MQUtils.listenerContainerAtomicReference.get())) {
-            SimpleMessageListenerContainer messageListenerContainer = MQUtils.getMessageListenerContainer(connectionFactory);
-            messageListenerContainer.setQueueNames(queueName);
-            messageListenerContainer.setMessageListener(consumer4);
-            RabbitAdmin rabbitAdmin = MQUtils.getRabbitAdmin(connectionFactory);
-            messageListenerContainer.setAmqpAdmin(rabbitAdmin);
-            messageListenerContainer.start();
-        }
+    public void createMessageQueueListener() {
+        //这里的Bean consumerListenerContainer取的是xml配置的监听器，且auto-startup=false，这里是consumer6
+        consumerListenerContainer.forEach(SimpleMessageListenerContainer::start);
     }
 
     public void stopMessageQueueListener(String host, Integer port, String userName, String passWord) {

@@ -35,13 +35,33 @@ public class ProducerController {
         return "SUCCESS";
     }
 
-
     @GetMapping("/sendEXChange")
     public String sendEXChange() {
         String context = "hello rabbit : ";
         for (int i = 0; i < 100; i++) {
             this.rabbitTemplate.convertAndSend(EXCHANGE_NAME, "*", context + i);
             System.out.println("Sender:" + context + i);
+        }
+        return "SUCCESS";
+    }
+
+    @GetMapping("/send6")
+    public String send6() {
+        String context = "hello rabbit : ";
+        for (int i = 0; i < 100; i++) {
+            this.rabbitTemplate.convertAndSend("MESSAGE_QUEUE_6", context + i);
+            System.out.println("Sender6:" + context + i);
+        }
+        return "SUCCESS";
+    }
+
+
+    @GetMapping("/send7")
+    public String send7() {
+        String context = "hello rabbit : ";
+        for (int i = 0; i < 100; i++) {
+            this.rabbitTemplate.convertAndSend("MESSAGE_QUEUE_7", context + i);
+            System.out.println("Sender7:" + context + i);
         }
         return "SUCCESS";
     }

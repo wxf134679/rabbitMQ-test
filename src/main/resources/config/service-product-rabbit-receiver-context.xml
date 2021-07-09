@@ -26,7 +26,7 @@
                                virtual-host="${spring.rabbitmq.virtual-host}"
                                channel-cache-size="${mq.rabbit.channel-cache-size}"></rabbit:connection-factory>
 
-    <rabbit:admin connection-factory="mqConnectionFactory"/>
+    <rabbit:admin id="mqAdmin" connection-factory="mqConnectionFactory"/>
 
     <bean id="rabbitTemplate"
           class="org.springframework.amqp.rabbit.core.RabbitTemplate">

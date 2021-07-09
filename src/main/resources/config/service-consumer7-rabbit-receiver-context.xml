@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="
+          http://www.springframework.org/schema/beans
+          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+          http://www.springframework.org/schema/tx
+          http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+          http://www.springframework.org/schema/context
+          http://www.springframework.org/schema/context/spring-context-3.0.xsd
+          http://www.springframework.org/schema/aop
+          http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+          http://www.springframework.org/schema/mvc
+          http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+          http://www.springframework.org/schema/rabbit
+          http://www.springframework.org/schema/rabbit/spring-rabbit-1.5.xsd">
+
+    <rabbit:queue id="MESSAGE_QUEUE_7"
+                  durable="true" auto-delete="false" exclusive="false"
+                  name="MESSAGE_QUEUE_7"/>
+
+    <rabbit:direct-exchange name="EXCHANGE_7"
+                            durable="true" auto-delete="false" id="EXCHANGE_7">
+        <rabbit:bindings>
+            <!-- 虚拟机 -->
+            <rabbit:binding queue="MESSAGE_QUEUE_7" key="EXCHANGE_KEY"/>
+        </rabbit:bindings>
+    </rabbit:direct-exchange>
+
+    <bean id="consumer7Bean"
+          class="com.wang.rabbitmq.consumer.listener.Consumer7"/>
+
+    <rabbit:listener-container group="consumerListenerContainer"
+                               connection-factory="mqConnectionFactory" acknowledge="manual"
+                               task-executor="taskExecutor" declaration-retries="${mq.rabbit.declarationRetries}"
+                               failed-declaration-retry-interval="${mq.rabbit.failedDeclarationRetryInterval}"
+                               auto-startup="false">
+        <rabbit:listener id="consumer7Listener" queues="MESSAGE_QUEUE_7" ref="consumer7Bean"/>
+    </rabbit:listener-container>
+
+</beans>

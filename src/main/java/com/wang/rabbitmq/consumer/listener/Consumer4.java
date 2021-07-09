@@ -1,7 +1,9 @@
 package com.wang.rabbitmq.consumer.listener;
 
+import com.rabbitmq.client.Channel;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;
+import org.springframework.amqp.rabbit.listener.api.ChannelAwareMessageListener;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,10 +13,10 @@ import org.springframework.stereotype.Component;
  * @date: 2021年07月05日 10:13:14
  */
 @Component
-public class Consumer4 implements MessageListener {
+public class Consumer4 implements ChannelAwareMessageListener {
 
     @Override
-    public void onMessage(Message message) {
+    public void onMessage(Message message, Channel channel) throws Exception {
         System.out.println("Receiver4:" + new String(message.getBody()));
     }
 }
