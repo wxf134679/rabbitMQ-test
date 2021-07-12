@@ -46,7 +46,7 @@ public class ConsumerController {
     @ApiOperation("关闭消息队列消费者")
     @GetMapping("stopMessageQueueListener")
     public String stopMessageQueueListener() {
-        mqClientMonitor.stopMessageQueueListener("localhost", 5672, "guest", "guest");
+        mqClientMonitor.stopMessageQueueListener();
         return "SUCCESS";
     }
 }

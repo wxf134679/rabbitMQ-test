@@ -33,6 +33,7 @@
     <bean id="consumer6Bean"
           class="com.wang.rabbitmq.consumer.listener.Consumer6"/>
 
+    <!--  配置动态启动时，listener-container标签的group属性和auto-startup属性必须配置，且group值会作为springBeanName，group值相同时，会包含在同一个集合中-->
     <rabbit:listener-container group="consumerListenerContainer"
                                connection-factory="mqConnectionFactory" acknowledge="manual"
                                task-executor="taskExecutor" declaration-retries="${mq.rabbit.declarationRetries}"

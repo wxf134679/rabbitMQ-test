@@ -127,13 +127,8 @@ public class MQClientMonitor {
         consumerListenerContainer.forEach(SimpleMessageListenerContainer::start);
     }
 
-    public void stopMessageQueueListener(String host, Integer port, String userName, String passWord) {
-        CachingConnectionFactory connectionFactory = MQUtils.getConnectionFactory(host, port, userName, passWord);
-        connectionFactory.resetConnection();
-        if (Objects.nonNull(MQUtils.listenerContainerAtomicReference.get())) {
-            MQUtils.listenerContainerAtomicReference.get().shutdown();
-            MQUtils.listenerContainerAtomicReference = new AtomicReference<>();
-        }
+    public void stopMessageQueueListener() {
+        consumerListenerContainer.forEach(SimpleMessageListenerContainer::stop);
     }
 
     /**

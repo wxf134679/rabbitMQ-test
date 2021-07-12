@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 
 /**
- * 类<code>Doc</code>用于：TODO
+ * MQ监听动态启动，在项目启动后再启动MQ监听
  *
  * @author: wangxiaofei
  * @date: 2021年07月08日 15:24:18
@@ -30,7 +30,7 @@ public class RabbitMQInitListener implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         //得到容器的对象
-        //可获取到根据注解@RabbitListener定义的监听器，此处是Consumer1
+        //可获取到根据注解@RabbitListener定义的监听器，此处是Consumer1.java
         Collection<MessageListenerContainer> containers = registry.getListenerContainers();
         containers.forEach(container -> {
             if (!container.isRunning()) {
