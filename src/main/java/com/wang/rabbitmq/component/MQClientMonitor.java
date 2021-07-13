@@ -1,30 +1,26 @@
 package com.wang.rabbitmq.component;
 
 import com.wang.rabbitmq.consumer.listener.Consumer4;
-import com.wang.rabbitmq.uitls.MQUtils;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
-import org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.MessageListenerContainer;
 import org.springframework.amqp.rabbit.listener.RabbitListenerEndpointRegistry;
 import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.util.ObjectUtils;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * 类<code>Doc</code>用于：TODO
@@ -51,8 +47,7 @@ public class MQClientMonitor {
     @Autowired
     private RabbitAdmin mqAdmin;
 
-    @Autowired
-    @Qualifier("consumerListenerContainer")
+    @Resource
     private Collection<SimpleMessageListenerContainer> consumerListenerContainer;
 
     /**

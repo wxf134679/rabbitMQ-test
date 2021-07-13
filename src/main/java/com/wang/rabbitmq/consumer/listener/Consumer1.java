@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @date: 2021年07月01日 11:21:43
  */
 @Component
-@RabbitListener(queues = "wang", autoStartup = "false")
+@RabbitListener(queues = "wang")
 public class Consumer1 {
 
     @RabbitHandler

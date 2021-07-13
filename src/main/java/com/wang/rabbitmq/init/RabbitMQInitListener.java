@@ -9,6 +9,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.Collection;
 
 /**
@@ -23,8 +24,7 @@ public class RabbitMQInitListener implements ApplicationRunner {
     @Autowired
     private RabbitListenerEndpointRegistry registry;
 
-    @Autowired
-    @Qualifier("consumerListenerContainer")
+    @Resource
     private Collection<SimpleMessageListenerContainer> consumerListenerContainer;
 
     @Override
