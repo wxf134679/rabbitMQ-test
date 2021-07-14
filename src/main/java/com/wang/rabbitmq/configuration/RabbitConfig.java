@@ -1,4 +1,4 @@
-package com.wang.rabbitmq.configration;
+package com.wang.rabbitmq.configuration;
 
 import com.wang.rabbitmq.consumer.listener.Consumer3;
 import org.springframework.amqp.core.Queue;
